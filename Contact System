@@ -1,0 +1,92 @@
+#making an empty dictionary
+contacts = []
+
+#making a function to add details of person in contact
+def add_contact():
+    name = input("Enter name: ")
+    phone = input("Enter phone number: ")
+    email = input("Enter email: ")
+    address = input("Enter address: ")
+
+    contact = {"Name": name, "Phone": phone, "Email": email, "Address": address}
+    contacts.append(contact)
+    print("Contact is added successfully.")
+
+#function for viewing a contact in contact list
+def view_contact_list():
+    if not contacts:
+        print("No contacts found.")
+    else:
+        print("Contact List:")
+        for i, contact in enumerate(contacts, start=1):
+            print(f"{i}. {contact['Name']}: {contact['Phone']}")
+
+# function for searching a contact
+def search_contact(query):
+    search_results = []
+    for contact in contacts:
+        if query.lower() in contact["Name"].lower() or query in contact["Phone"]:
+            search_results.append(contact)
+    return search_results
+
+# function for making changes in either of contact
+def update_contact():
+    name = input("Enter the name of the contact you want to edit ")
+    for contact in contacts:
+        if contact["Name"].lower() == name.lower():
+            print("Enter new details:")
+            contact["Phone"] = input("Phone: ")
+            contact["Email"] = input("Email: ")
+            contact["Address"] = input("Address: ")
+            print("Contact updated successfully.")
+            return
+    print("This contact is not present in your contact list")
+
+# function for deleting any of contact
+def delete_contact():
+    name = input("Enter the name of the contact you want to delete: ")
+    for contact in contacts:
+        if contact["Name"].lower() == name.lower():
+            contacts.remove(contact)
+            print("Contact deleted successfully.")
+            return
+    print("This contact is not present in your contact list")
+
+def main():
+    while True:
+        print("\nContact Management System")
+        print("1. Add Contact")
+        print("2. View Contact List")
+        print("3. Search Contact")
+        print("4. Update Contact")
+        print("5. Delete Contact")
+        print("6. Exit")
+
+        # asking user what he want to do in contact system
+        choice = input("what you want to do  :")
+
+        if choice == "1":
+            add_contact()
+        elif choice == "2":
+            view_contact_list()
+        elif choice == "3":
+            query = input("Enter name or phone number to search: ")
+            search_results = search_contact(query)
+            if not search_results:
+                print("No matching contacts found.")
+            else:
+                print("Search Results:")
+                for contact in search_results:
+                    print(contact)
+        elif choice == "4":
+            update_contact()
+        elif choice == "5":
+            delete_contact()
+        elif choice == "6":
+            print("Exiting system Goodbye!")
+            break
+        else:
+            print("Invalid choice.")
+
+if __name__ == "__main__":
+    main()
